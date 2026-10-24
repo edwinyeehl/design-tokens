@@ -1,0 +1,39 @@
+{
+  "name": "@eyee/design-tokens",
+  "version": "1.0.0",
+  "description": "Crédit Agricole CACEIS design tokens and Tailwind CSS v4 theme",
+  "main": "styles.css",
+  "style": "styles.css",
+  "files": [
+    "styles.css",
+    "tokens.json",
+    "theme.json"
+  ],
+  "exports": {
+    ".": "./styles.css",
+    "./styles.css": "./styles.css",
+    "./tokens.json": "./tokens.json",
+    "./theme.json": "./theme.json"
+  },
+  "publishConfig": {
+    "registry": "https://gitea.caceis.internal/api/packages/eyee/npm/"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "keywords": [
+    "caceis",
+    "design-tokens",
+    "tailwind",
+    "tailwindcss-v4",
+    "shadcn",
+    "oklch",
+    "theme"
+  ],
+  "author": "Edwin Yee <edwin.yee@caceis.com>",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/edwinyeehl/design-tokens.git"
+  }
+}
