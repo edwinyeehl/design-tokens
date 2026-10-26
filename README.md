@@ -1,8 +1,8 @@
 # @eyee/design-tokens
 
-Official **Crédit Agricole CACEIS** design tokens, Tailwind CSS v4 theme, and canonical brand assets, built strictly according to the **Graphic Guidelines 2026**.
+Official **Crédit Agricole CACEIS** design tokens, Tailwind CSS v4 theme, and canonical brand vector assets, built strictly according to the **Graphic Guidelines 2026**.
 
-This package provides OKLCH-based design tokens, CSS variables, Tailwind CSS v4 `@theme inline` utilities, and transparent high-resolution brand logo assets that seamlessly integrate with upstream `shadcn/ui` components and enterprise application layouts.
+This package provides OKLCH-based design tokens, CSS variables, Tailwind CSS v4 `@theme inline` utilities, and razor-sharp SVG vector brand assets (with PNG fallbacks) that seamlessly integrate with upstream `shadcn/ui` components and enterprise application layouts.
 
 ---
 
@@ -34,16 +34,17 @@ This package provides OKLCH-based design tokens, CSS variables, Tailwind CSS v4 
 
 ## 3. Official Brand Logos (`assets/logos/`)
 
-All logo assets are 2000px high-resolution, transparent RGBA PNGs covering both orientations and all 3 authorized color treatments:
+All logo assets are provided as **pure vector SVGs** (~7 KB, infinitely scalable, resolution-independent) alongside 2000px high-resolution transparent PNG fallbacks:
 
 ```text
 assets/logos/
-├── caceis-logo-horizontal-color.png    # Primary horizontal logo (Full Colour)
-├── caceis-logo-horizontal-white.png    # Horizontal logo (100% Reversed White)
-├── caceis-logo-horizontal-black.png    # Horizontal logo (Monochrome Black)
-├── caceis-logo-vertical-color.png      # Primary vertical stacked logo (Full Colour)
-├── caceis-logo-vertical-white.png      # Vertical stacked logo (100% Reversed White)
-└── caceis-logo-vertical-black.png      # Vertical stacked logo (Monochrome Black)
+├── caceis-logo-horizontal-color.svg    # Primary horizontal logo (Full Colour SVG)
+├── caceis-logo-horizontal-white.svg    # Horizontal logo (100% Reversed White SVG)
+├── caceis-logo-horizontal-black.svg    # Horizontal logo (Monochrome Black SVG)
+├── caceis-logo-vertical-color.svg      # Primary vertical stacked logo (Full Colour SVG)
+├── caceis-logo-vertical-white.svg      # Vertical stacked logo (100% Reversed White SVG)
+├── caceis-logo-vertical-black.svg      # Vertical stacked logo (Monochrome Black SVG)
+└── *.png                               # High-res transparent PNG fallbacks
 ```
 
 ### Brand Usage & Compliance Rules
@@ -56,19 +57,19 @@ assets/logos/
 3. **Minimum Digital Size:**
    * Digital web applications must render the logo at a minimum width of **`110 px`** (`min-w-[110px]`) to maintain legibility.
 4. **Background Contrast Rules:**
-   * **Full Colour (`*-color.png`):** Use strictly on white, light grey, or very light almond-tinted surfaces. *Never* place on dark or low-contrast backgrounds.
-   * **Reversed White (`*-white.png`):** Use on dark backgrounds, solid CACEIS Green headers (`#006A4E`), or collapsed dark navigation sidebars.
-   * **Monochrome Black (`*-black.png`):** Reserved for single-color print or strict high-contrast grayscale documentation.
+   * **Full Colour (`*-color.svg`):** Use strictly on white, light grey, or very light almond-tinted surfaces. *Never* place on dark or low-contrast backgrounds.
+   * **Reversed White (`*-white.svg`):** Use on dark backgrounds, solid CACEIS Green headers (`#006A4E`), or collapsed dark navigation sidebars.
+   * **Monochrome Black (`*-black.svg`):** Reserved for single-color print or strict high-contrast grayscale documentation.
 
 ---
 
 ## 4. Usage in React / Next.js / Vite Applications
 
-### Direct Import via Bundler (Standard npm)
+### Option A: Direct SVG Import (Standard npm)
 
 ```tsx
-import logoHorizontalColor from "@eyee/design-tokens/assets/logos/caceis-logo-horizontal-color.png";
-import logoHorizontalWhite from "@eyee/design-tokens/assets/logos/caceis-logo-horizontal-white.png";
+import logoHorizontalColor from "@eyee/design-tokens/assets/logos/caceis-logo-horizontal-color.svg";
+import logoHorizontalWhite from "@eyee/design-tokens/assets/logos/caceis-logo-horizontal-white.svg";
 
 interface HeaderBrandProps {
   isDarkMode?: boolean;
@@ -84,6 +85,18 @@ export function HeaderBrand({ isDarkMode = false }: HeaderBrandProps) {
       />
     </div>
   );
+}
+```
+
+### Option B: SVGR / Inline Component (Vite / Next.js)
+
+If your project uses `@svgr/webpack` or `vite-plugin-svgr`:
+
+```tsx
+import LogoColor from "@eyee/design-tokens/assets/logos/caceis-logo-horizontal-color.svg?react";
+
+export function Brand() {
+  return <LogoColor className="h-8 w-auto min-w-[110px]" />;
 }
 ```
 
@@ -121,7 +134,7 @@ If publishing to the internal Nexus npm-hosted repository:
    # Default registry (Nexus npm-group for public packages)
    registry=https://nexus.cicd.caceis.group.gca/repository/npm-group/
 
-   # Scoped registry for @eyee packages (Nexus npm-hosted)
+   # Scoped registry for internal @eyee packages
    @eyee:registry=https://nexus.cicd.caceis.group.gca/repository/npm-hosted/
    always-auth=true
    ```
