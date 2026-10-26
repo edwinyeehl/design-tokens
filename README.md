@@ -64,10 +64,9 @@ assets/logos/
 
 ## 4. Usage in React / Next.js / Vite Applications
 
-### Direct Import via Bundler (Vite / Next.js)
+### Direct Import via Bundler (Standard npm)
 
 ```tsx
-import Image from "next/image";
 import logoHorizontalColor from "@eyee/design-tokens/assets/logos/caceis-logo-horizontal-color.png";
 import logoHorizontalWhite from "@eyee/design-tokens/assets/logos/caceis-logo-horizontal-white.png";
 
@@ -78,11 +77,10 @@ interface HeaderBrandProps {
 export function HeaderBrand({ isDarkMode = false }: HeaderBrandProps) {
   return (
     <div className="flex items-center p-3">
-      <Image
+      <img
         src={isDarkMode ? logoHorizontalWhite : logoHorizontalColor}
         alt="Crédit Agricole CACEIS"
         className="h-8 w-auto min-w-[110px] object-contain"
-        priority
       />
     </div>
   );
@@ -91,33 +89,57 @@ export function HeaderBrand({ isDarkMode = false }: HeaderBrandProps) {
 
 ---
 
-## 5. Installation & Consumption Options
+## 5. Installation & Consumption Options (Standard npm)
 
-### Option A: Direct Git Dependency (Recommended for internal environments)
-If the internal Gitea/Artifactory npm package registry is not yet provisioned:
+### Option A: Direct Git Dependency (Zero Nexus Overhead)
+Install directly from internal Gitea using standard `npm` without waiting for Nexus repository approvals:
 
 ```bash
-pnpm add git+https://github.com/edwinyeehl/design-tokens.git#main
+npm install git+https://git.cicd.caceis.group.gca/eyee/design-tokens.git#main
 ```
-or via internal CACEIS Gitea:
+Or for public GitHub access:
 ```bash
-pnpm add git+https://git.cicd.caceis.group.gca/eyee/design-tokens.git#main
+npm install git+https://github.com/edwinyeehl/design-tokens.git#main
 ```
 
-### Option B: Gitea / Artifactory NPM Package Registry
-When published to the scoped registry:
+In your application's `package.json`:
+```json
+{
+  "dependencies": {
+    "@eyee/design-tokens": "git+https://git.cicd.caceis.group.gca/eyee/design-tokens.git#main"
+  }
+}
+```
 
-1. Configure `.npmrc` in your project:
+---
+
+### Option B: CACEIS Internal Nexus Repository
+If publishing to the internal Nexus npm-hosted repository:
+
+1. **Configure `.npmrc` in your consumer project:**
    ```ini
-   @eyee:registry=https://gitea.caceis.internal/api/packages/eyee/npm/
+   # Default registry (Nexus npm-group for public packages)
+   registry=https://nexus.cicd.caceis.group.gca/repository/npm-group/
+
+   # Scoped registry for @eyee packages (Nexus npm-hosted)
+   @eyee:registry=https://nexus.cicd.caceis.group.gca/repository/npm-hosted/
+   always-auth=true
    ```
-2. Install:
+
+2. **Authenticate with Nexus:**
    ```bash
-   pnpm add @eyee/design-tokens
+   npm login --registry=https://nexus.cicd.caceis.group.gca/repository/npm-hosted/ --scope=@eyee
    ```
+
+3. **Install:**
+   ```bash
+   npm install @eyee/design-tokens
+   ```
+
+---
 
 ### Option C: Native `shadcn` CLI Theme
-For applications configuring the `@eyee` custom registry in `components.json`:
+For applications consuming the custom `@eyee` registry defined in `components.json`:
 
 ```bash
 npx shadcn@latest add @eyee/theme
@@ -146,21 +168,12 @@ npx shadcn@latest add @eyee/theme
 
 ---
 
-## 7. Repository File Structure
+## 7. Publishing to Nexus (Standard npm)
 
-```
-design-tokens/
-├── assets/
-│   └── logos/
-│       ├── caceis-logo-horizontal-black.png
-│       ├── caceis-logo-horizontal-color.png
-│       ├── caceis-logo-horizontal-white.png
-│       ├── caceis-logo-vertical-black.png
-│       ├── caceis-logo-vertical-color.png
-│       └── caceis-logo-vertical-white.png
-├── package.json    # @eyee/design-tokens with exported ./assets/*
-├── styles.css      # Core Tailwind v4 @layer base & @theme inline tokens
-├── tokens.json     # W3C-compliant raw design token manifest
-├── theme.json      # shadcn/ui registry:theme item
-└── README.md       # Comprehensive documentation & brand rules
+```bash
+# 1. Bump version in package.json
+npm version patch
+
+# 2. Publish to Nexus hosted registry
+npm publish --registry https://nexus.cicd.caceis.group.gca/repository/npm-hosted/
 ```

@@ -17,9 +17,6 @@
     "./theme.json": "./theme.json",
     "./assets/*": "./assets/*"
   },
-  "publishConfig": {
-    "registry": "https://gitea.caceis.internal/api/packages/eyee/npm/"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0"
   },
