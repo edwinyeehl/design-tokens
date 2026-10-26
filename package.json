@@ -1,19 +1,21 @@
 {
   "name": "@eyee/design-tokens",
-  "version": "1.0.0",
-  "description": "Crédit Agricole CACEIS design tokens and Tailwind CSS v4 theme",
+  "version": "1.1.0",
+  "description": "Official Crédit Agricole CACEIS 2026 design tokens, Tailwind CSS v4 theme, and canonical brand assets",
   "main": "styles.css",
   "style": "styles.css",
   "files": [
     "styles.css",
     "tokens.json",
-    "theme.json"
+    "theme.json",
+    "assets"
   ],
   "exports": {
     ".": "./styles.css",
     "./styles.css": "./styles.css",
     "./tokens.json": "./tokens.json",
-    "./theme.json": "./theme.json"
+    "./theme.json": "./theme.json",
+    "./assets/*": "./assets/*"
   },
   "publishConfig": {
     "registry": "https://gitea.caceis.internal/api/packages/eyee/npm/"
@@ -28,7 +30,8 @@
     "tailwindcss-v4",
     "shadcn",
     "oklch",
-    "theme"
+    "theme",
+    "logos"
   ],
   "author": "Edwin Yee <edwin.yee@caceis.com>",
   "license": "UNLICENSED",
