@@ -2,7 +2,7 @@
 
 Official **Crédit Agricole CACEIS** design tokens, Tailwind CSS v4 theme, and canonical brand vector assets, built strictly according to the **Graphic Guidelines 2026**.
 
-This package provides OKLCH-based design tokens, CSS variables, Tailwind CSS v4 `@theme inline` utilities, and razor-sharp, tightly trimmed SVG vector brand assets (with PNG fallbacks) that seamlessly integrate with upstream `shadcn/ui` components and enterprise application layouts.
+This package provides OKLCH-based design tokens, CSS variables, Tailwind CSS v4 `@theme inline` utilities, and razor-sharp, tightly trimmed SVG vector brand assets (along with lightweight WebP fallbacks) that seamlessly integrate with upstream `shadcn/ui` components and enterprise application layouts.
 
 ---
 
@@ -34,7 +34,7 @@ This package provides OKLCH-based design tokens, CSS variables, Tailwind CSS v4 
 
 ## 3. Official Brand Logos (`assets/logos/`)
 
-All logo assets are provided as **tightly trimmed vector SVGs** (edge-to-edge bounding boxes, zero phantom margins, resolution-independent) alongside transparent PNG fallbacks:
+All logo assets are provided as **tightly trimmed vector SVGs** (edge-to-edge bounding boxes, zero phantom margins, resolution-independent) alongside modern transparent **WebP** raster formats:
 
 ```text
 assets/logos/
@@ -44,7 +44,7 @@ assets/logos/
 ├── caceis-logo-vertical-color.svg      # Primary vertical stacked logo (Full Colour, 1514x894 viewBox)
 ├── caceis-logo-vertical-white.svg      # Vertical stacked logo (100% Reversed White, 1514x894 viewBox)
 ├── caceis-logo-vertical-black.svg      # Vertical stacked logo (Monochrome Black, 1514x894 viewBox)
-└── *.png                               # High-res transparent PNG fallbacks
+└── *.webp                              # Transparent WebP trimmed fallbacks
 ```
 
 ### Brand Usage & Compliance Rules
@@ -58,15 +58,15 @@ assets/logos/
 3. **Minimum Digital Size:**
    * Digital web applications must render the logo at a minimum width of **`110 px`** (`min-w-[110px]`) to maintain legibility.
 4. **Background Contrast Rules:**
-   * **Full Colour (`*-color.svg`):** Use strictly on white, light grey, or very light almond-tinted surfaces. *Never* place on dark or low-contrast backgrounds.
-   * **Reversed White (`*-white.svg`):** Use on dark backgrounds, solid CACEIS Green headers (`#006A4E`), or collapsed dark navigation sidebars.
-   * **Monochrome Black (`*-black.svg`):** Reserved for single-color print or strict high-contrast grayscale documentation.
+   * **Full Colour (`*-color.svg` / `*-color.webp`):** Use strictly on white, light grey, or very light almond-tinted surfaces. *Never* place on dark or low-contrast backgrounds.
+   * **Reversed White (`*-white.svg` / `*-white.webp`):** Use on dark backgrounds, solid CACEIS Green headers (`#006A4E`), or collapsed dark navigation sidebars.
+   * **Monochrome Black (`*-black.svg` / `*-black.webp`):** Reserved for single-color print or strict high-contrast grayscale documentation.
 
 ---
 
 ## 4. Usage in React / Next.js / Vite Applications
 
-### Option A: Standard `img` Tag (Responsive with Tailwind)
+### Option A: Standard `img` Tag (Responsive SVG or WebP)
 
 ```tsx
 import logoHorizontalColor from "@eyee/design-tokens/assets/logos/caceis-logo-horizontal-color.svg";
